@@ -4,10 +4,11 @@
 
 void simulate(std::vector<std::vector<double>> &height, std::vector<std::vector<double>> &velocity,
               std::vector<std::vector<double>> &mass,
+              std::function<void(std::vector<std::vector<double>> &height, int frame)>& generator,
               int IMG_SCALE) {
     const unsigned WINDOW_WIDTH = height.size();
     const unsigned WINDOW_HEIGHT = height[0].size();
-
+    int frame = 0;
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH * IMG_SCALE, WINDOW_HEIGHT * IMG_SCALE), "none");
     sf::View myView(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
                     sf::Vector2f(WINDOW_WIDTH / IMG_SCALE * 2, WINDOW_HEIGHT / IMG_SCALE * 2));
@@ -22,6 +23,8 @@ void simulate(std::vector<std::vector<double>> &height, std::vector<std::vector<
 
     sf::Event event;
     while (window.isOpen()) {
+        ++frame;
+        generator(height,frame);
         while (window.pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::Closed:
@@ -69,7 +72,7 @@ void simulate(std::vector<std::vector<double>> &height, std::vector<std::vector<
                 double averageHeight = sumheight / cnt;
 
                 velocity[i][j] = velocity[i][j] - (height[i][j] - averageHeight) / mass[i][j];
-                int add = static_cast<int>(127.0*(height[i][j]/max_abs_height));
+                int add = fmin(127,static_cast<int>(127.0*(height[i][j]/max_abs_height)*4));
                 buffer.setPixel(i, j, sf::Color(127 + add, static_cast<int>(127.0+127.0*cos(mass[i][j])*20.0) ,
                                                 127 - add));
 

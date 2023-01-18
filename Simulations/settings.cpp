@@ -1,7 +1,7 @@
 #include "settings.h"
 
 
-void set_defaut_mass(std::vector<std::vector<double>> &mass,int DEFAULT_MASS) {
+void set_defaut_mass(std::vector<std::vector<double>> &mass, int DEFAULT_MASS) {
     for (int i = 1; i < mass.size() - 1; ++i) {
         for (int j = 1; j < mass[i].size() - 1; ++j) {
             mass[i][j] = DEFAULT_MASS;
@@ -9,25 +9,22 @@ void set_defaut_mass(std::vector<std::vector<double>> &mass,int DEFAULT_MASS) {
     }
 }
 
-auto setting_clear(std::vector<std::vector<double>> &velocity,
+void setting_clear(std::vector<std::vector<double>> &velocity,
                    std::vector<std::vector<double>> &height,
-                   std::vector<std::vector<double>> &mass,int DEFAULT_MASS) {
-    set_defaut_mass(mass,DEFAULT_MASS);
-    int WINDOW_WIDTH = mass.size();
-    int WINDOW_HEIGHT = mass[0].size();
-    velocity[WINDOW_WIDTH / 2][WINDOW_HEIGHT / 2] = 100;
+                   std::vector<std::vector<double>> &mass, int DEFAULT_MASS) {
+    set_defaut_mass(mass, DEFAULT_MASS);
 
 }
 
 void setting_glass_ball(std::vector<std::vector<double>> &velocity,
                         std::vector<std::vector<double>> &height,
-                        std::vector<std::vector<double>> &mass,int DEFAULT_MASS) {
-    set_defaut_mass(mass,DEFAULT_MASS);
+                        std::vector<std::vector<double>> &mass, int DEFAULT_MASS) {
+    set_defaut_mass(mass, DEFAULT_MASS);
 
     int WINDOW_WIDTH = mass.size();
     int WINDOW_HEIGHT = mass[0].size();
     int centrex = WINDOW_WIDTH / 5;
-    int centrey = WINDOW_HEIGHT / 4;
+    int centrey = WINDOW_HEIGHT / 2;
     int radius = 40;
     for (int i = 1; i < mass.size() - 1; ++i) {
         for (int j = 1; j < mass[i].size() - 1; ++j) {
@@ -47,8 +44,8 @@ void setting_glass_ball(std::vector<std::vector<double>> &velocity,
 
 void setting_interferention(std::vector<std::vector<double>> &velocity,
                             std::vector<std::vector<double>> &height,
-                            std::vector<std::vector<double>> &mass,int DEFAULT_MASS) {
-    set_defaut_mass(mass,DEFAULT_MASS);
+                            std::vector<std::vector<double>> &mass, int DEFAULT_MASS) {
+    set_defaut_mass(mass, DEFAULT_MASS);
 
     int WINDOW_WIDTH = mass.size();
     int WINDOW_HEIGHT = mass[0].size();
@@ -59,8 +56,8 @@ void setting_interferention(std::vector<std::vector<double>> &velocity,
 
 void setting_test(std::vector<std::vector<double>> &velocity,
                   std::vector<std::vector<double>> &height,
-                  std::vector<std::vector<double>> &mass,int DEFAULT_MASS) {
-    set_defaut_mass(mass,DEFAULT_MASS);
+                  std::vector<std::vector<double>> &mass, int DEFAULT_MASS) {
+    set_defaut_mass(mass, DEFAULT_MASS);
 
     int WINDOW_WIDTH = mass.size();
     int WINDOW_HEIGHT = mass[0].size();
@@ -77,6 +74,18 @@ void setting_test(std::vector<std::vector<double>> &velocity,
             }
 
 
+        }
+    }
+}
+void generator_blank(std::vector<std::vector<double>> &height, int frame){
+
+}
+void generator_default(std::vector<std::vector<double>> &height, int frame) {
+    int WINDOW_WIDTH = height.size();
+    int WINDOW_HEIGHT = height[0].size();
+    for (int i = WINDOW_HEIGHT / 2; i < WINDOW_HEIGHT / 2 + 30; ++i) {
+        for (int k = 0; k < 30; ++k) {
+            height[WINDOW_WIDTH / 2][i - k] = sin(0.8*static_cast<double>(frame))*70;
         }
     }
 }
