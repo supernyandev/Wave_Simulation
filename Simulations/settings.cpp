@@ -9,7 +9,7 @@ void set_defaut_mass(std::vector<std::vector<double>> &mass,int DEFAULT_MASS) {
     }
 }
 
-void setting_clear(std::vector<std::vector<double>> &velocity,
+auto setting_clear(std::vector<std::vector<double>> &velocity,
                    std::vector<std::vector<double>> &height,
                    std::vector<std::vector<double>> &mass,int DEFAULT_MASS) {
     set_defaut_mass(mass,DEFAULT_MASS);
